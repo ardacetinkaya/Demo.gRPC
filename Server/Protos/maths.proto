@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "gRPC.Server";
+
+package Quiz;
+
+service Maths {
+  rpc AskQuestion (QuestionRequest) returns (stream AnswerReply);
+}
+
+// The request message containing the user's name.
+message QuestionRequest {
+  repeated string texts = 1;
+}
+
+// The response message containing the greetings.
+message AnswerReply {
+  string question = 1;
+  int32 answer=2;
+}
