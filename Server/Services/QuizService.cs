@@ -15,20 +15,20 @@ namespace gRPC.Server
         {
             _logger = logger;
         }
-        public override async Task AskQuestion(QuestionRequest request, IServerStreamWriter<AnswerReply> responseStream, ServerCallContext context)
+        public override async Task AskQuestion(QuestionRequest questions, IServerStreamWriter<AnswerReply> responseStream, ServerCallContext context)
         {
-            foreach (var item in request.Texts.ToList())
+            foreach (var question in questions.Texts.ToList())
             {
                 try
                 {
-                    if (!string.IsNullOrEmpty(item))
+                    if (!string.IsNullOrEmpty(question))
                     {
                         var dt = new DataTable();
-                        var answer =Convert.ToDouble(dt.Compute(item, string.Empty));
+                        var answer = Convert.ToDouble(dt.Compute(question, string.Empty));
 
                         await Task.Delay(800);
 
-                        await responseStream.WriteAsync(new AnswerReply { Answer = answer, Question = item });
+                        await responseStream.WriteAsync(new AnswerReply { Answer = answer, Question = question });
                     }
                 }
                 catch (Exception)
