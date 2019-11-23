@@ -21,11 +21,15 @@ namespace gRPC.Server
             {
                 try
                 {
-                    DataTable dt = new DataTable();
-                    int answer = (int)dt.Compute(item, string.Empty);
-                    // Gotta look busy
-                    await Task.Delay(500);
-                    await responseStream.WriteAsync(new AnswerReply { Answer = answer, Question = item });
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        DataTable dt = new DataTable();
+                        int answer = (int)dt.Compute(item, string.Empty);
+
+                        await Task.Delay(800);
+
+                        await responseStream.WriteAsync(new AnswerReply { Answer = answer, Question = item });
+                    }
                 }
                 catch (Exception)
                 {

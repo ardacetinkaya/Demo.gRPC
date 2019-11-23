@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using gRPC.Server;
 using System.Threading;
 using Grpc.Net.Client;
+using System.Net.Http;
+using System.Runtime.InteropServices;
 
 namespace gRPC.Client
 {
@@ -13,9 +15,15 @@ namespace gRPC.Client
         {
             Console.WriteLine("Hello World!");
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            var channel = GrpcChannel.ForAddress("https://localhost:5001");
-            var client = new Maths.MathsClient(channel);
+            string address = "https://localhost:5001";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+                address="http://localhost:5001";
+            }
 
+            var channel = GrpcChannel.ForAddress(address);
+            var client = new Maths.MathsClient(channel);
             List<string> questions = new List<string>()
             {
                 {"2+5"},{"1-1"},{"5-6"},{"6+2*(98*2)"},{"10/2"},{"5-2"},{"4*2"},
