@@ -16,5 +16,5 @@ message QuestionRequest {
 // The response message containing the greetings.
 message AnswerReply {
   string question = 1;
-  int32 answer=2;
+  double answer=2;
 }

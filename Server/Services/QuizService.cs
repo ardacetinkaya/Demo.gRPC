@@ -1,13 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data;
-using Grpc.Core;
-using Microsoft.Extensions.Logging;
-
 namespace gRPC.Server
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Data;
+    using Grpc.Core;
+    using Microsoft.Extensions.Logging;
+
     public class QuizService : Maths.MathsBase
     {
         private readonly ILogger<QuizService> _logger;
@@ -23,8 +23,8 @@ namespace gRPC.Server
                 {
                     if (!string.IsNullOrEmpty(item))
                     {
-                        DataTable dt = new DataTable();
-                        int answer = (int)dt.Compute(item, string.Empty);
+                        var dt = new DataTable();
+                        var answer =Convert.ToDouble(dt.Compute(item, string.Empty));
 
                         await Task.Delay(800);
 
@@ -34,7 +34,7 @@ namespace gRPC.Server
                 catch (Exception)
                 {
 
-                    await responseStream.WriteAsync(new AnswerReply { Answer = 0, Question = "ERROR occured" });
+                    await responseStream.WriteAsync(new AnswerReply { Answer = 0, Question = "It seems that something is wrong.!!!" });
                 }
 
 
