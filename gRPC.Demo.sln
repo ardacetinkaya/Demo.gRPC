@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.Client", "Client\gRPC.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "gRPC.Server", "Server\gRPC.Server.csproj", "{4071B520-9E78-4CCE-9507-EE6B9FED4507}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.WWW", "WWW\gRPC.WWW\gRPC.WWW.csproj", "{729C5A4F-33FC-4DD2-984E-493AA9A12829}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gRPC.WWW", "WWW\gRPC.WWW.csproj", "{729C5A4F-33FC-4DD2-984E-493AA9A12829}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
