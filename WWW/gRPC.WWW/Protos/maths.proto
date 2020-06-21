@@ -5,7 +5,6 @@ option csharp_namespace = "gRPC.Server";
 package Quiz;
 
 service Maths {
-  rpc AskQuestion (QuestionRequest) returns (stream AnswerReply);
   rpc SolveOperation (QuestionRequest) returns (AnswerReply);
 }
 

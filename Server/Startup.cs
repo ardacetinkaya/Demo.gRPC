@@ -12,6 +12,14 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+
+            services.AddCors(o => o.AddPolicy("AllowAll", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader()
+                       .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -20,13 +28,17 @@
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseGrpcWeb();
+            app.UseCors("AllowAll");
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<QuizService>();
+                endpoints.MapGrpcService<QuizService>().EnableGrpcWeb();
 
                 endpoints.MapGet("/", async context =>
                 {

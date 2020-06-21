@@ -13,12 +13,12 @@
             Console.WriteLine("Hello World!");
 
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            string address = "https://localhost:5001";
+            string address = "https://localhost:5111";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-                address = "http://localhost:5001";
+                address = "http://localhost:5111";
             }
 
             var channel = GrpcChannel.ForAddress(address);

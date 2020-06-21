@@ -1,0 +1,36 @@
+﻿@inject GrpcChannel Channel
+
+<div class="d-flex flex-row">
+    <div class="p-2 flex-fill">@Question = @(Answer.HasValue? Answer.ToString():"???")</div>
+    <div class="p-2"><button class="btn btn-sm btn-primary" @onclick="SolveOperation">Solve</button></div>
+</div>
+@code {
+    [Parameter]
+    public string Question { get; set; }
+
+    private double? Answer { get; set; }
+
+    private async Task SolveOperation()
+    {
+        if (!string.IsNullOrEmpty(Question))
+        {
+            try
+            {
+                var request = new Server.QuestionRequest();
+                request.Texts.Add(Question);
+
+                var client = new gRPC.Server.Maths.MathsClient(Channel);
+                var result = await client.SolveOperationAsync(request);
+
+                Answer = result.Answer;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+    }
+}

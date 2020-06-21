@@ -41,5 +41,16 @@ namespace gRPC.Server
             }
         }
 
+        public override async Task<AnswerReply> SolveOperation(QuestionRequest request, ServerCallContext context)
+        {
+            var dt = new DataTable();
+            var answer = Convert.ToDouble(dt.Compute(request.Texts[0], string.Empty));
+            return new AnswerReply()
+            {
+                Question = request.Texts[0].Trim(),
+                Answer = answer
+            };
+        }
+
     }
 }
