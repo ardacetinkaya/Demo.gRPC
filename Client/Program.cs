@@ -18,7 +18,7 @@
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
-                address = "http://localhost:5111";
+                address = "http://localhost:5001";
             }
 
             var channel = GrpcChannel.ForAddress(address);
